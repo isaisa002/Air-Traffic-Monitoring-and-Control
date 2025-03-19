@@ -24,6 +24,21 @@
 		},
 		{
 			"type": "shell",
+			"label": "QNX: run on Qemu",
+			"command": "make qemu-run",
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"env": {
+					"QNX_HOST": "${env:QNX_HOST}",
+					"QNX_TARGET": "${env:QNX_TARGET}",
+					"MAKEFLAGS": "${env:MAKEFLAGS}",
+					"PATH": "${env:PATH}"
+				}
+			},
+			"problemMatcher": []
+		},
+		{
+			"type": "shell",
 			"label": "QNX: clean",
 			"command": "make clean",
 			"options": {
@@ -37,11 +52,7 @@
 			},
 			"problemMatcher": [
 				"$gcc"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": false
-			}
+			]
 		},
 		{
 			"type": "shell",
@@ -58,11 +69,7 @@
 			},
 			"problemMatcher": [
 				"$gcc"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": false
-			}
+			]
 		}
 	]
 }
