@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/isach/Downloads/UNI/4th year/11th semester - Winter 2025/COEN 320/Project/ATC_github/Air-Traffic-Monitoring-and-Control",
+      "program": "c:/Users/isach/Downloads/UNI/4th year/11th semester - Winter 2025/COEN 320/Project/ATC_github/Air-Traffic-Monitoring-and-Control/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
