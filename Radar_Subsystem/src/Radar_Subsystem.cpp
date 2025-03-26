@@ -2,28 +2,28 @@
 #include "Shared_Memory.h"
 #include "Timer.h"
 #include "Logger.h"
+using namespace std;
 
 int main() {
-    std::cout << "[Radar] Hello from Radar_Subsystem!" << std::endl;
+    cout << "[Radar] Hello from Radar_Subsystem!" << endl;
 
-    // Initialize shared memory (read-only access for test)
-    SharedMemoryStruct* shm = initSharedMemory(false);
+    // Create shared memory (true: create and initialize)
+    SharedMemory* shm = new SharedMemory(true);
     if (!shm) {
-        std::cerr << "[Radar] Failed to open shared memory." << std::endl;
+        cerr << "[Radar] Failed to open shared memory." << endl;
         return 1;
-    } else {
-        std::cout << "[Radar] Shared memory opened successfully." << std::endl;
     }
+    cout << "[Radar] Shared memory opened successfully." << endl;
 
-    // Use Timer from Timer.h
-    std::cout << "[Radar] Sleeping for 1 second using Timer.h..." << std::endl;
-    sleepForSeconds(1);
+    // Sleep for 1 second using Timer's static method
+    cout << "[Radar] Sleeping for 1 second using Timer..." << endl;
+    Timer::sleepSeconds(1);
 
-    // Use Logger to write something to log
-    Logger radarLog("radar_log.txt");
-    radarLog.log("[Radar] Test log entry from Radar_Subsystem.");
+    // Log a test message using Logger's static method
+    Logger::logMessage("[Radar] Test log entry from Radar_Subsystem.");
+    cout << "[Radar] Logger wrote to file successfully." << endl;
 
-    std::cout << "[Radar] Logger wrote to file successfully." << std::endl;
-
+    // Clean up shared memory when done
+    delete shm;
     return 0;
 }

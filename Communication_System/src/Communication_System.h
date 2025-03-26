@@ -1,16 +1,18 @@
+#ifndef COMMUNICATION_SYSTEM_H
+#define COMMUNICATION_SYSTEM_H
 
-/*
- * Communication_System.h
- *
- *  Created on: Mar. 22, 2025
- *      Author: isach
- */
+#include <string>
+#include "Shared_Memory.h"
+using namespace std;
 
-#ifndef COMMUNICATION_SYSTEM_H_
-#define COMMUNICATION_SYSTEM_H_
+class CommunicationSystem {
+public:
+    CommunicationSystem(SharedMemory* sharedMemory);
+    void sendCommand(int aircraftID, const string& command);
+    void receiveData(int aircraftID);
 
+private:
+    SharedMemory* shm_;
+};
 
-
-
-
-#endif /* COMMUNICATION_SYSTEM_H_ */
+#endif // COMMUNICATION_SYSTEM_H

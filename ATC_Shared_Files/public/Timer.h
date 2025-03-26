@@ -1,10 +1,16 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-// Sleep for the given number of milliseconds
-void sleepForMilliseconds(int ms);
+#include <chrono>  // For chrono and time-related functions
+using namespace std;  // Using std namespace for easier access to standard library features
 
-// Sleep for the given number of seconds
-void sleepForSeconds(int seconds);
+class Timer {
+public:
+    // Sleep for a specified number of seconds (QNX compatible)
+    static void sleepSeconds(int seconds);
 
-#endif
+    // Sleep for a specified number of milliseconds (QNX compatible)
+    static void sleepMilliseconds(int milliseconds);
+};
+
+#endif // TIMER_H

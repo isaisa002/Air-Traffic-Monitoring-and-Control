@@ -3,12 +3,6 @@
 	<name>Aircraft_Manager</name>
 	<comment></comment>
 	<projects>
-		<project>Communication_System</project>
-		<project>Computer_System</project>
-		<project>Data_Display</project>
-		<project>Operator_Console</project>
-		<project>Radar_Subsystem</project>
-		<project>vm2</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

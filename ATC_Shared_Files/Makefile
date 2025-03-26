@@ -30,6 +30,8 @@ LIBS_profile += -lprofilingS
 CCFLAGS_all += -Wall -fmessage-length=0 $(CCFLAGS_$(BUILD_PROFILE)) -fPIC
 LDFLAGS_all += $(LDFLAGS_$(BUILD_PROFILE))
 LIBS_all += $(LIBS_$(BUILD_PROFILE))
+
+# Dependency tracking
 DEPS = -Wp,-MMD,$(@:%.o=%.d),-MT,$@
 
 # Macro to expand files recursively: parameters $1 - directory, $2 - extension
@@ -38,22 +40,24 @@ rwildcard = $(wildcard $(addprefix $1/*.,$2)) $(foreach d,$(wildcard $1/*),$(cal
 # Source list (all .c and .cpp files in src)
 SRCS = $(call rwildcard, src, c cpp)
 
-# Object files list: placed in OUTPUT_DIR with the same basename as source files, but with .o extension.
+# Object files list
 OBJS = $(addprefix $(OUTPUT_DIR)/,$(addsuffix .o, $(basename $(SRCS))))
 
 # Compiling rule for C files
 $(OUTPUT_DIR)/%.o: %.c
-	@mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)  # Ensure the target directory exists
+	@echo "Compiling C file: $<"
 	$(CC) -c $(DEPS) -o $@ $(INCLUDES) $(CCFLAGS_all) $<
 
 # Compiling rule for C++ files
 $(OUTPUT_DIR)/%.o: %.cpp
-	@mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)  # Ensure the target directory exists
+	@echo "Compiling C++ file: $<"
 	$(CXX) -c $(DEPS) -o $@ $(INCLUDES) $(CCFLAGS_all) $<
 
 # Linking rule for shared library
 $(TARGET): $(OBJS)
-	@mkdir -p $(OUTPUT_DIR)
+	@mkdir -p $(OUTPUT_DIR)  # Ensure the output directory exists
 	@echo "Linking shared library: $(LD) -shared -o $(TARGET) $(LDFLAGS_all) $(OBJS) $(LIBS_all)"
 	$(LD) -shared -o $(TARGET) $(LDFLAGS_all) $(OBJS) $(LIBS_all)
 
