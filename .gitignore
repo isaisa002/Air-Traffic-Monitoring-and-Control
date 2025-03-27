@@ -1,2 +1,11 @@
 vm2/
 Debug/
+
+Aircraft_Manager/build
+ATC_Shared_Files/build
+Communication_System/build
+Computer_System/build
+Data_Display/build
+Operator_Console/build
+
+tree.txt
