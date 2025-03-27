@@ -239,7 +239,8 @@ rebuild: clean all
 .PHONY: deploy
 
 # Set your target host, user, and destination path.
-DEPLOY_HOST = 192.168.56.101
+#DEPLOY_HOST = 192.168.56.101
+DEPLOY_HOST = 192.168.141.9
 DEPLOY_USER = user
 DEPLOY_PATH = /tmp/aircraft_input.txt
 
