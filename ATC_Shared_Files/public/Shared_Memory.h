@@ -2,31 +2,61 @@
 #define SHARED_MEMORY_H
 
 #include <pthread.h>
-#include <ctime>
+#include <chrono>
+#include <sys/mman.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string>
+using namespace std;
 
-// Shared memory name and size constants
-#define SHM_NAME "/atc_shm"
-#define MAX_AIRCRAFT 100
+constexpr int MAX_AIRCRAFT = 50;
 
-// Aircraft data structure to hold position, speed, etc.
 struct AircraftData {
-    int ID;
-    float X, Y, Z;
-    float SpeedX, SpeedY, SpeedZ;
-    time_t timestamp;
-    bool active;
+    int id;
+    bool isActive;
+    double posX, posY, posZ;
+    double speedX, speedY, speedZ;
+    double flightLevel;
+    bool hasResponded;
+
+    // Temporal Parameters (if needed)
+    chrono::seconds releaseTime;
+    chrono::seconds relativeDeadline;
+    chrono::seconds executionTime;
+    chrono::seconds deadline;
+    chrono::seconds responseTime;
+    chrono::seconds period;
 };
 
-// Structure for shared memory, containing multiple aircraft data
-struct SharedMemoryStruct {
-    pthread_mutex_t mutex;                 // Mutex for thread synchronization
-    AircraftData aircrafts[MAX_AIRCRAFT];  // Array of aircraft data
-    int aircraft_count;                    // Number of active aircraft
-    int lookahead_seconds;                 // Time window for checking separation
-    bool alert_triggered;                  // Flag to indicate if an alert was triggered
+struct SharedData {
+    AircraftData aircraftList[MAX_AIRCRAFT];
+    pthread_mutex_t aircraftLocks[MAX_AIRCRAFT];
+    int lookaheadSeconds;
+    bool alarmTriggered;
+    char lastOperatorCommand[256];
+    pthread_mutex_t globalLock;
 };
 
-// Function to initialize shared memory
-SharedMemoryStruct* initSharedMemory(bool create);
+class SharedMemory {
+public:
+    // Constructor: create or open shared memory.
+    SharedMemory(bool createFlag);
+    ~SharedMemory();
+
+    // Returns pointer to the shared data.
+    SharedData* getData();
+
+    // Lock utility functions with logging.
+    void lockAircraft(int index);
+    void unlockAircraft(int index);
+
+    void lockGlobal();
+    void unlockGlobal();
+
+private:
+    SharedData* data_;
+    int fd_;
+    bool owner_;
+};
 
 #endif

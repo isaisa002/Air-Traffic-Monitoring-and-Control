@@ -1,26 +1,32 @@
 #include "Logger.h"
-#include <fstream>
 #include <iostream>
+#include <fstream>
+#include <mutex>
+#include <sstream>
+using namespace std;
 
-// Constructor: opens the log file for appending
-Logger::Logger(const std::string& filename) : log_file(filename, std::ios::app) {
-    if (!log_file.is_open()) {
-        std::cerr << "[Logger] Failed to open log file." << std::endl;
-    }
-}
+static mutex loggerMutex;
 
-// Destructor: closes the log file
-Logger::~Logger() {
-    if (log_file.is_open()) {
-        log_file.close();
-    }
-}
-
-// Log a message to the file
-void Logger::log(const std::string& entry) {
-    if (log_file.is_open()) {
-        log_file << entry << std::endl;
+// Helper function to log the message to a specific log file based on module
+void Logger::logToFile(const string &message, const string &filename) {
+    ofstream logFile(filename, ios::app);
+    if (logFile.is_open()) {
+        logFile << message << endl;
+        logFile.close();
     } else {
-        std::cerr << "[Logger] Log file not open." << std::endl;
+        cerr << "[Logger] Unable to open log file: " << filename << endl;
     }
+}
+
+// Main log function to handle logging based on the module
+void Logger::logMessage(const string &message, const string &module) {
+    lock_guard<mutex> lock(loggerMutex);
+
+    // Create a log filename based on the module (e.g., "AircraftManager_log.txt")
+    stringstream logFilename;
+    logFilename << module << "_log.txt";
+
+    // Log to both file and console
+    logToFile(message, logFilename.str());
+    cout << "[" << module << "] " << message << endl;
 }

@@ -1,23 +1,17 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include <fstream>
 #include <string>
+using namespace std;
 
-// Logger class for logging messages to a file
 class Logger {
 public:
-    // Constructor: opens the log file for appending
-    Logger(const std::string& filename);
-
-    // Destructor: closes the log file
-    ~Logger();
-
-    // Log a message to the file
-    void log(const std::string& entry);
+    // Log message to different destinations (e.g., file or console) based on the module
+    static void logMessage(const string &message, const string &module = "General");
 
 private:
-    std::ofstream log_file;  // File stream for logging
+    // Private helper method to log to a specific file
+    static void logToFile(const string &message, const string &filename);
 };
 
-#endif
+#endif // LOGGER_H
