@@ -106,32 +106,30 @@ $(OUTPUT_DIR)/%.o: %.cpp
 $(TARGET): $(OBJS)
 	$(LD) -o $(TARGET) $(LDFLAGS_all) $(LDFLAGS) $(OBJS) $(LIBS_all) $(LIBS)
 
-# Default build target
-all: $(TARGET) copy_input
+#  Copy the input file to the build directory
+#  copy_input:
+# 	@echo "Copying aircraft_input.txt to $(OUTPUT_DIR)/aircraft_input.txt"
+# 	cp aircraft_input.txt $(OUTPUT_DIR)/aircraft_input.txt
 
-clean:
-	rm -fr $(OUTPUT_DIR)
-
-
-
-
-rebuild: clean all
-
-
-
-
-#Inclusion of dependencies (object files to source and includes)
--include $(OBJS:%.o=%.d)
-
-
-.PHONY: deploy
-
-# Set your target host, user, and destination path.
-#DEPLOY_HOST = 192.168.56.101
+# Deployment settings
 DEPLOY_HOST = 192.168.141.9
 DEPLOY_USER = user
-DEPLOY_PATH = /tmp/aircraft_input.txt
+DEPLOY_PATH = /dev/shmem/
+DEPLOY_PORT = 8000
 
-# The deploy target builds the project (using "all") and then copies the text file.
-deploy: all
-	scp aircraft_input.txt $(DEPLOY_USER)@$(DEPLOY_HOST):$(DEPLOY_PATH)
+# Default target: Build
+all: $(TARGET)
+# all: $(TARGET) copy_input
+# 	@echo "Deploying aircraft_input.txt to $(DEPLOY_PATH)/aircraft_input.txt via Qconn on port $(DEPLOY_PORT)"
+# 	@qconn -h $(DEPLOY_HOST) -p $(DEPLOY_PORT) -u $(DEPLOY_USER) copy $(OUTPUT_DIR)/aircraft_input.txt $(DEPLOY_PATH)/aircraft_input.txt
+# 	# The following SCP command is commented out:
+# 	# @scp $(OUTPUT_DIR)/aircraft_input.txt $(DEPLOY_USER)@$(DEPLOY_HOST):$(DEPLOY_PATH)
+
+# Clean target: Remove local build and remote file using Qconn (with port specified)
+clean:
+	rm -fr $(OUTPUT_DIR)
+# 	@echo "Removing aircraft_input.txt from remote target at $(DEPLOY_PATH) via Qconn on port $(DEPLOY_PORT)"
+# 	@qconn -h $(DEPLOY_HOST) -p $(DEPLOY_PORT) -u $(DEPLOY_USER) remove $(DEPLOY_PATH)/aircraft_input.txt
+# 	# The following SSH removal command is commented out:
+# 	# @ssh $(DEPLOY_USER)@$(DEPLOY_HOST) "rm -f $(DEPLOY_PATH)/aircraft_input.txt"
+

@@ -1,8 +1,7 @@
 ARTIFACT = Computer_System
 #Build architecture/variant string, possible values: x86, armv7le, etc...
-PLATFORM ?= x86_64
-
-
+# PLATFORM ?= x86_64
+PLATFORM := aarch64le
 
 
 #Build profile, possible values: release, debug, profile, coverage
