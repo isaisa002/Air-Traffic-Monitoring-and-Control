@@ -1,17 +1,17 @@
-# # Ignore build directories
-# Aircraft_Manager/build
-# ATC_Shared_Files/build
-# Communication_System/build
-# Computer_System/build
-# Data_Display/build
-# Operator_Console/build
-# Radar_Subsystem/build
+# Ignore build directories
+Aircraft_Manager/build
+ATC_Shared_Files/build
+Communication_System/build
+Computer_System/build
+Data_Display/build
+Operator_Console/build
+Radar_Subsystem/build
 
-# # Ignore debug files
-# Debug/
+# Ignore debug files
+Debug/
 
-# # Ignore virtual machine files
-# vm2/
+# Ignore virtual machine files
+vm2/
 
-# # Ignore tree.txt file
-# tree.txt
+# Ignore tree.txt file
+tree.txt
