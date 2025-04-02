@@ -1,0 +1,85 @@
+.
+├── Aircraft_Manager
+│   ├── aircraft_input.txt
+│   ├── build
+│   │   ├── aarch64le-debug
+│   │   │   ├── aircraft_input.txt
+│   │   │   ├── Aircraft_Manage
+│   │   │   └── src
+│   │   │       ├── Aircraft_Manage.d
+│   │   │       └── Aircraft_Manage.o
+│   │   └── ATC_Shared_Files
+│   │       └── src
+│   │           ├── Logger.d
+│   │           ├── Logger.o
+│   │           ├── Shared_Memory.d
+│   │           ├── Shared_Memory.o
+│   │           ├── Timer.d
+│   │           └── Timer.o
+│   ├── Makefile
+│   └── src
+│       ├── Aircraft_Manage.cpp
+│       └── Aircraft_Manager.h
+├── ATC.cc
+├── ATC_Shared_Files
+│   ├── build
+│   │   └── aarch64le-debug
+│   │       ├── libATC_Shared_Files.so
+│   │       └── src
+│   │           ├── Logger.d
+│   │           ├── Logger.o
+│   │           ├── Shared_Memory.d
+│   │           ├── Shared_Memory.o
+│   │           ├── Timer.d
+│   │           └── Timer.o
+│   ├── Makefile
+│   ├── public
+│   │   ├── Logger.h
+│   │   ├── Shared_Memory.h
+│   │   └── Timer.h
+│   └── src
+│       ├── Logger.cpp
+│       ├── Shared_Memory.cpp
+│       └── Timer.cpp
+├── common.mk
+├── Communication_System
+│   ├── build
+│   ├── Makefile
+│   └── src
+│       ├── Communication_System.cpp
+│       └── Communication_System.h
+├── Computer_System
+│   ├── build
+│   ├── Makefile
+│   └── src
+│       ├── Computer_System.cpp
+│       └── Computer_System.h
+├── Data_Display
+│   ├── build
+│   ├── Makefile
+│   └── src
+│       ├── Data_Display.cpp
+│       └── Data_Display.h
+├── Makefile
+├── Operator_Console
+│   ├── build
+│   ├── Makefile
+│   └── src
+│       ├── Operator_Console.cpp
+│       └── Operator_Console.h
+├── Radar_Subsystem
+│   ├── build
+│   ├── Makefile
+│   └── src
+│       ├── Radar_Subsystem.cpp
+│       └── Radar_Subsystem.h
+├── README.md
+├── tree.txt
+└── x86_64
+    ├── Makefile
+    ├── o
+    │   └── Makefile
+    └── o-g
+        └── Makefile
+
+31 directories, 51 files
