@@ -30,3 +30,13 @@ void Logger::logMessage(const string &message, const string &module) {
     logToFile(message, logFilename.str());
     cout << "[" << module << "] " << message << endl;
 }
+
+// Log operator command
+void Logger::logOperatorCommand(const std::string &command) {
+    // Use a dedicated file for operator commands
+    const std::string opCommandFilename = "OperatorCommands_log.txt";
+    lock_guard<mutex> lock(loggerMutex);
+    logToFile(command, opCommandFilename);
+    // Also print to console.
+    cout << "[OperatorCommand] " << command << endl;
+}
