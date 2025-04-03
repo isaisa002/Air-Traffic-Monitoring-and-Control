@@ -23,6 +23,7 @@ void logHistory(SharedMemory* shm) {
             historyFile << "Speed(" << data->aircraftList[i].speedX << ", "
                         << data->aircraftList[i].speedY << ", "
                         << data->aircraftList[i].speedZ << ")\n";
+            // Removed: "Flight Level" output since it doesn't exist.
             shm->unlockAircraft(i);
         }
         historyFile << "---------------------\n";
@@ -35,12 +36,12 @@ void logHistory(SharedMemory* shm) {
 int main() {
     Logger::logMessage("[HistoryLogger] Starting History Logger...");
     SharedMemory* shm = new SharedMemory(false);
-
+    
     while (true) {
         logHistory(shm);
         Timer::sleepSeconds(20); // Log history every 20 seconds.
     }
-
+    
     delete shm;
     return 0;
 }
