@@ -1,7 +1,7 @@
 ARTIFACT = libATC_Shared_Files.so
 
-# Build architecture/variant string, possible values: x86, armv7le, etc...
-PLATFORM ?= x86_64
+# Build architecture/variant string, possible values: aarch64le, armv7le, x86_64...
+PLATFORM := aarch64le
 
 # Build profile, possible values: release, debug, profile, coverage
 BUILD_PROFILE ?= debug
