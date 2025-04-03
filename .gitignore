@@ -16,3 +16,6 @@ vm2/
 # Ignore tree.txt file
 tree.txt
 diagram.txt
+
+# ignore vscode files
+.vscode
