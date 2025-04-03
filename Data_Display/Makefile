@@ -1,6 +1,7 @@
 ARTIFACT = Data_Display
-#Build architecture/variant string, possible values: x86, armv7le, etc...
-PLATFORM ?= x86_64
+
+# Build architecture/variant string, possible values: aarch64le, armv7le, x86_64...
+PLATFORM := aarch64le
 
 
 
