@@ -2,61 +2,44 @@
 #define SHARED_MEMORY_H
 
 #include <pthread.h>
-#include <chrono>
-#include <sys/mman.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <string>
-using namespace std;
 
-constexpr int MAX_AIRCRAFT = 50;
+#define MAX_AIRCRAFT 10
 
 struct AircraftData {
     int id;
+    double posX;
+    double posY;
+    double posZ;
+    double speedX;
+    double speedY;
+    double speedZ;
     bool isActive;
-    double posX, posY, posZ;
-    double speedX, speedY, speedZ;
-    double flightLevel;
-    bool hasResponded;
-
-    // Temporal Parameters (if needed)
-    chrono::seconds releaseTime;
-    chrono::seconds relativeDeadline;
-    chrono::seconds executionTime;
-    chrono::seconds deadline;
-    chrono::seconds responseTime;
-    chrono::seconds period;
 };
 
 struct SharedData {
     AircraftData aircraftList[MAX_AIRCRAFT];
-    pthread_mutex_t aircraftLocks[MAX_AIRCRAFT];
-    int lookaheadSeconds;
-    bool alarmTriggered;
     char lastOperatorCommand[256];
+    int predictionLookahead; // Dynamic prediction lookahead (in seconds)
     pthread_mutex_t globalLock;
+    pthread_mutex_t aircraftLocks[MAX_AIRCRAFT];
 };
 
 class SharedMemory {
 public:
-    // Constructor: create or open shared memory.
-    SharedMemory(bool createFlag);
+    // Constructor: create or attach to shared memory.
+    SharedMemory(bool createNew = true);
     ~SharedMemory();
 
-    // Returns pointer to the shared data.
     SharedData* getData();
 
-    // Lock utility functions with logging.
+    // Locking helpers
+    void lockGlobal();
+    void unlockGlobal();
     void lockAircraft(int index);
     void unlockAircraft(int index);
 
-    void lockGlobal();
-    void unlockGlobal();
-
 private:
     SharedData* data_;
-    int fd_;
-    bool owner_;
 };
 
-#endif
+#endif // SHARED_MEMORY_H
